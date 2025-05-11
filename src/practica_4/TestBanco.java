@@ -1,5 +1,12 @@
 package practica_4;
 
+/**
+ * Esta clase simula el funcionamiento de un banco.
+ * Refleja el flujo de operaciones entre clientes y cuentas.
+ * Realiza operaciones de: transferencia, extracción e ingreso.
+ * 
+ * @version Tercer Commit.
+ * @author Carlos Sánchez Miranda.*/
 public class TestBanco {
 		/*EXTRACCIÓN DE CONSTANTES MEDIANTE REFACTORIZACIÓN*/
 		private static final int CIEN = 100;
@@ -77,18 +84,38 @@ public class TestBanco {
 		
 		/* EXTRACCIÓN DE MÉTODOS MEDIANTE REFACTORIZACIÓN*/
 		/* MÉTODO DE INGRESO DE SALDO*/
+		
+		/**
+		 * Ingresa una cantidad de dinero a una cuenta. Añade saldo al monto actual.
+		 * 
+		 * @param cuenta Cuenta a la que se le ingresa el dinero.
+		 * @param cantidad Cantidad de dinero que se ingresa.*/
 		private static void ingresarSaldo(Cuenta cuenta, int cantidad) {
 			cuenta.setSaldo(cuenta.getSaldo() + cantidad);
 		}
 
 		
 		/* MÉTODO DE EXTRACCIÓN DE SALDO*/
+		
+		/**
+		 * Extrae una cantidad determinada de dinero de una cuenta. Resta saldo al monto actual.
+		 * 
+		 * @param cuenta Cuenta de la que se extrae el dinero.
+		 * @param cantidad Cantidad de dinero que se extrae.
+		*/
 		private static void extraerSaldo(Cuenta cuenta, int cantidad) {
 			cuenta.setSaldo(cuenta.getSaldo() - cantidad);
 		}
 
 		
 		/* MÉTODO DE TRANSFERENCIA DE SALDO*/
+		
+		/**
+		 * Transfiere un saldo determinado entre dos cuentas. 
+		 * 
+		 * @param origen Cuenta de la que se extrae el dinero.
+		 * @param destino Cuenta que recibe el dinero.
+		 * @param cantidad Cantidad de dinero transferido.*/
 		private static void transferirSaldo(Cuenta origen, Cuenta destino, int cantidad) {
 			origen.setSaldo(origen.getSaldo() - cantidad);
 			destino.setSaldo(destino.getSaldo() + cantidad);
