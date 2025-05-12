@@ -6,12 +6,14 @@ package practica_4;
  * Realiza operaciones de: transferencia, extracción e ingreso.
  * 
  * @version Tercer Commit.
- * @author Carlos Sánchez Miranda.*/
+ * @author Carlos Sánchez Miranda*/
 public class TestBanco {
 		/*EXTRACCIÓN DE CONSTANTES MEDIANTE REFACTORIZACIÓN*/
 		private static final int CIEN = 100;
 
-		
+		/**
+		 * Método principal que simula operaciones bancarias entre usuarios
+		 * */
 		public static void main(String args[]) {
 			/*CONSTANTES DE COLORES PARA VISUALIZAR EL CÓDIGO*/
 			final String NEGRITA = "\033[1m";				
@@ -21,7 +23,7 @@ public class TestBanco {
 			
 			
 			/*EXTRACCIÓN DE VARIABLES LOCALES MEDIANTE REFACTORIZACIÓN*/
-			String cuenta = "LA CUENTA DE ";
+			String cadena_cuenta = "LA CUENTA DE ";
 			String tiene = " TIENE ";
 			String euro = "€.";
 
@@ -37,8 +39,8 @@ public class TestBanco {
 			
 			/*ANTONIO Y BEATRIZ CONSULTAN EL SALDO DISPONIBLE EN SU CUENTA*/ 
 			System.out.println(NEGRITA+"1. CONSULTA DEL SALDO AL CREAR LA CUENTA"+RESET);
-			System.out.println(AZUL+cuenta+RESET+ cuentaAntonio.getCliente().getNombre() +AZUL+tiene+RESET+ cuentaAntonio.getSaldo() +AZUL+euro+RESET); 
-			System.out.println(AZUL+cuenta+RESET+ cuentaBeatriz.getCliente().getNombre() +AZUL+tiene+RESET+ cuentaBeatriz.getSaldo() +AZUL+euro+RESET); 
+			informacionConsola(RESET, AZUL, cadena_cuenta, tiene, euro, cuentaAntonio); 
+			informacionConsola(RESET, AZUL, cadena_cuenta, tiene, euro, cuentaBeatriz); 
 			
 			
 			
@@ -50,8 +52,8 @@ public class TestBanco {
 			/*ANTONIO Y BEATRIZ VUELVEN A CONSULTAN EL SALDO DISPONIBLE EN SU CUENTA*/ 
 			System.out.println();
 			System.out.println(NEGRITA+"2. CONSULTA DEL SALDO TRAS LA TRANSFERENCIA BEATRIZ --> ANTONIO"+RESET);
-			System.out.println(AZUL+cuenta+RESET+ cuentaAntonio.getCliente().getNombre() +AZUL+tiene+RESET+ cuentaAntonio.getSaldo() +AZUL+euro+RESET); 
-			System.out.println(AZUL+cuenta+RESET+ cuentaBeatriz.getCliente().getNombre() +AZUL+tiene+RESET+ cuentaBeatriz.getSaldo() +AZUL+euro+RESET); 
+			informacionConsola(RESET, AZUL, cadena_cuenta, tiene, euro, cuentaAntonio); 
+			informacionConsola(RESET, AZUL, cadena_cuenta, tiene, euro, cuentaBeatriz); 
 			
 		
 			
@@ -63,8 +65,8 @@ public class TestBanco {
 			/*ANTONIO Y BEATRIZ VUELVEN A CONSULTAN EL SALDO DISPONIBLE EN SU CUENTA*/ 
 			System.out.println();
 			System.out.println(NEGRITA+"3. CONSULTA DEL SALDO TRAS LAS OPERACIONES DE RIFA Y HACIENDA"+RESET);
-			System.out.println(AZUL+cuenta+RESET+ cuentaAntonio.getCliente().getNombre() +AZUL+tiene+RESET+ cuentaAntonio.getSaldo() +AZUL+euro+RESET); 
-			System.out.println(AZUL+cuenta+RESET+ cuentaBeatriz.getCliente().getNombre() +AZUL+tiene+RESET+ cuentaBeatriz.getSaldo() +AZUL+euro+RESET); 
+			informacionConsola(RESET, AZUL, cadena_cuenta, tiene, euro, cuentaAntonio); 
+			informacionConsola(RESET, AZUL, cadena_cuenta, tiene, euro, cuentaBeatriz); 
 			
 			
 			
@@ -76,47 +78,58 @@ public class TestBanco {
 			/*ANTONIO Y BEATRIZ VUELVEN A CONSULTAN EL SALDO DISPONIBLE EN SU CUENTA*/ 
 			System.out.println();
 			System.out.println(NEGRITA+"4. CONSULTA DEL SALDO TRAS LA TRANSFERENCIA DE ANTONIO --> BEATRIZ"+RESET);
-			System.out.println(AZUL+cuenta+RESET+ cuentaAntonio.getCliente().getNombre() +AZUL+tiene+RESET+ cuentaAntonio.getSaldo() +AZUL+euro+RESET); 
-			System.out.println(AZUL+cuenta+RESET+ cuentaBeatriz.getCliente().getNombre() +AZUL+tiene+RESET+ cuentaBeatriz.getSaldo() +AZUL+euro+RESET); 
+			informacionConsola(RESET, AZUL, cadena_cuenta, tiene, euro, cuentaAntonio); 
+			informacionConsola(RESET, AZUL, cadena_cuenta, tiene, euro, cuentaBeatriz); 
 		}
 
 		
-		
 		/* EXTRACCIÓN DE MÉTODOS MEDIANTE REFACTORIZACIÓN*/
-		/* MÉTODO DE INGRESO DE SALDO*/
+		/*MÉTODO QUE MUESTRA DETALLES DE OPERACIONES*/
+		/**
+		 * Permite visualizar por consola de forma concisa y clara los detalles de las operaciones
+		 * @param RESET Restablece, por defecto, a negro la fuente en consola 
+		 * @param AZUL Establece a color azul la fuente en consola
+		 * @param cadena_cuenta Contiene información sobre el mensaje que se muestra en consola
+		 * @param tiene Contiene información sobre el mensaje que se muestra en consola
+		 * @param euro Contiene información sobre el mensaje que se muestra en consola
+		 * @param cuenta Contiene el objeto de tipo Cuenta*/
+		public static void informacionConsola(final String RESET, final String AZUL, String cadena_cuenta, String tiene, String euro,
+				Cuenta cuenta) {
+			System.out.println(AZUL+cadena_cuenta+RESET+ cuenta.getCliente().getNombre() +AZUL+tiene+RESET+ cuenta.getSaldo() +AZUL+euro+RESET);
+		}
+
 		
+		/* MÉTODO DE INGRESO DE SALDO*/
 		/**
 		 * Ingresa una cantidad de dinero a una cuenta. Añade saldo al monto actual.
 		 * 
 		 * @param cuenta Cuenta a la que se le ingresa el dinero.
 		 * @param cantidad Cantidad de dinero que se ingresa.*/
-		private static void ingresarSaldo(Cuenta cuenta, int cantidad) {
+		public static void ingresarSaldo(Cuenta cuenta, int cantidad) {
 			cuenta.setSaldo(cuenta.getSaldo() + cantidad);
 		}
 
 		
 		/* MÉTODO DE EXTRACCIÓN DE SALDO*/
-		
 		/**
 		 * Extrae una cantidad determinada de dinero de una cuenta. Resta saldo al monto actual.
 		 * 
 		 * @param cuenta Cuenta de la que se extrae el dinero.
 		 * @param cantidad Cantidad de dinero que se extrae.
 		*/
-		private static void extraerSaldo(Cuenta cuenta, int cantidad) {
+		public static void extraerSaldo(Cuenta cuenta, int cantidad) {
 			cuenta.setSaldo(cuenta.getSaldo() - cantidad);
 		}
 
 		
 		/* MÉTODO DE TRANSFERENCIA DE SALDO*/
-		
 		/**
 		 * Transfiere un saldo determinado entre dos cuentas. 
 		 * 
 		 * @param origen Cuenta de la que se extrae el dinero.
 		 * @param destino Cuenta que recibe el dinero.
 		 * @param cantidad Cantidad de dinero transferido.*/
-		private static void transferirSaldo(Cuenta origen, Cuenta destino, int cantidad) {
+		public static void transferirSaldo(Cuenta origen, Cuenta destino, int cantidad) {
 			origen.setSaldo(origen.getSaldo() - cantidad);
 			destino.setSaldo(destino.getSaldo() + cantidad);
 		}
